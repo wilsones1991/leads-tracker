@@ -26,15 +26,12 @@ document.addEventListener("keydown", function(event) {
     }
 })
 
-// Setting a tabs array that will be more relevant when we call Google Chrome API later
-const tabs = [
-    {url: "https://www.linkedin.com/in/per-harald-borgen/"}
-]
-
 // Saves the tab in the tabs array. Will be more useful when we are calling active tab.
 saveTabBtn.addEventListener("click", function() {
-    submitLeads(tabs[0].url)
-    console.log(tabs[0].url)
+    // Add a line to get current tab from Chrome
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        submitLeads(tabs[0].url)
+    })
 })
 
 // Clear assets when double clicking delete button
@@ -48,17 +45,17 @@ deleteBtn.addEventListener("dblclick", function() {
 })
 
 function sendInputText() {
-    submitLeads(inputEl.value)
-    inputEl.value = ""
-    inputEl.focus()
+    if (inputEl.value) {
+        submitLeads(inputEl.value)
+        inputEl.value = ""
+        inputEl.focus()
+    }
 }
 
 function submitLeads (website) {
-    if (website !== "") {
-        myLeads.push(website)
-        localStorage.setItem("myLeads", JSON.stringify(myLeads))
-        render(myLeads)
-    }
+    myLeads.push(website)
+    localStorage.setItem("myLeads", JSON.stringify(myLeads))
+    render(myLeads)
 }
 
 function render(leads) {
