@@ -25,14 +25,23 @@ input[type="text"]:focus {
 }
 
 button {
-  background: #5f9341;
   box-shadow: none;
-  border: none;
+  border: solid 1px #5f9341;
   font-size: 1.2rem;
-  font-weight: bold;
   padding: 10px 20px;
-  color: white;
   font-family: inherit;
+  font-weight: bold;
+  color: white;
+  background: #5f9341;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.delete-btn {
+  color: #5f9341;
+  background: none;
 }
 
 ul {
